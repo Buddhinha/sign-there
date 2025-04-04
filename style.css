@@ -1,5 +1,21 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    
+}
 body{
-    background-color: rgb(255, 0, 0);
+    background-color: rsgb(255, 255, 255);
     color: black;
+}
+
+.banner {
+    background-color: aqua;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 144px;
+}
+
+.banner2 {
+     background-color: aquamarine;
+     font-size: 44px;
 }
 
