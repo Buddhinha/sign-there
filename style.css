@@ -11,7 +11,7 @@ body {
     
 }
 
-/* Banner principal */
+
 .banner {
     background-color: #1f1f1f;
     color: #00ffff; /* aqua mais viva no escuro */
@@ -20,7 +20,7 @@ body {
     padding: 40px 0;
 }
 
-/* Sub-banner ou texto secundário */
+
 .banner2 {
     background-color: #1f1f1f;
     color: #a0f0ff;
@@ -29,7 +29,6 @@ body {
     padding: 20px 0;
 }
 
-/* Menu de navegação */
 .navigator {
     background-color: #222;
     padding: 15px;
