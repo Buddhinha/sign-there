@@ -1,21 +1,72 @@
-*{
-    padding: 0%;
-    margin: 0%;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212; /* fundo escuro */
+    color: #e0e0e0; /* texto claro */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     
 }
-body{
-    background-color: rsgb(255, 255, 255);
-    color: black;
-}
 
+/* Banner principal */
 .banner {
-    background-color: aqua;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #1f1f1f;
+    color: #00ffff; /* aqua mais viva no escuro */
     font-size: 144px;
+    text-align: center;
+    padding: 40px 0;
 }
 
+/* Sub-banner ou texto secundário */
 .banner2 {
-     background-color: aquamarine;
-     font-size: 44px;
+    background-color: #1f1f1f;
+    color: #a0f0ff;
+    font-size: 24px;
+    text-align: center;
+    padding: 20px 0;
 }
 
+/* Menu de navegação */
+.navigator {
+    background-color: #222;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 44px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.navigator a {
+    text-decoration: none;
+    color: #00ffff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navigator a:hover {
+    color: #ffffff;
+}
+
+/* Rodapé */
+.rodape {
+    background-color: #1a1a1a;
+    color: #cccccc;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 16px;
+}
+
+mark {
+    background-color: #00ffff; /* cor de fundo do destaque */
+    color: black; /* cor do texto dentro do mark */
+    padding: 2px 4px;
+    border-radius: 4px; /* arredondamento opcional */
+  }
+  

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Joguinho da Fruta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #121212;
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #game {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: #1e1e1e;
+            border: 2px solid #f0f0f0;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+
+        #player {
+            width: 30px;
+            height: 30px;
+            background-color: #00aaff; /* azul mais vivo */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .fruit {
+            width: 20px;
+            height: 20px;
+            background-color: #ff5555; /* vermelho forte */
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        #score {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🍎 Joguinho da Frutinha 🍎</h1>
+<div id="game">
+    <div id="player"></div>
+</div>
+<div id="score">Pontos: 0</div>
+
+<script>
+    const game = document.getElementById('game');
+    const player = document.getElementById('player');
+    const scoreDisplay = document.getElementById('score');
+
+    let playerX = 0;
+    let playerY = 0;
+    let score = 0;
+
+    function createFruit() {
+        const fruit = document.createElement('div');
+        fruit.classList.add('fruit');
+        fruit.style.left = Math.floor(Math.random() * (game.clientWidth - 20)) + 'px';
+        fruit.style.top = Math.floor(Math.random() * (game.clientHeight - 20)) + 'px';
+        game.appendChild(fruit);
+    }
+
+    function checkCollision() {
+        const fruits = document.querySelectorAll('.fruit');
+        fruits.forEach(fruit => {
+            const fruitRect = fruit.getBoundingClientRect();
+            const playerRect = player.getBoundingClientRect();
+
+            const overlap = !(
+                playerRect.right < fruitRect.left ||
+                playerRect.left > fruitRect.right ||
+                playerRect.bottom < fruitRect.top ||
+                playerRect.top > fruitRect.bottom
+            );
+
+            if (overlap) {
+                fruit.remove();
+                score++;
+                scoreDisplay.innerText = 'Pontos: ' + score;
+                createFruit();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        const step = 10;
+        if (e.key === 'ArrowUp' && playerY > 0) playerY -= step;
+        if (e.key === 'ArrowDown' && playerY < game.clientHeight - 30) playerY += step;
+        if (e.key === 'ArrowLeft' && playerX > 0) playerX -= step;
+        if (e.key === 'ArrowRight' && playerX < game.clientWidth - 30) playerX += step;
+
+        player.style.top = playerY + 'px';
+        player.style.left = playerX + 'px';
+
+        checkCollision();
+    });
+
+    createFruit();
+</script>
+
+</body>
+</html>
