@@ -1,39 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHAT</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        img {
-            max-width: 90%;
-            height: auto;
-            border: 3px solid #f0f0f0;
-            border-radius: 12px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Simples</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    #chat { max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; background: #fff; }
+    .msg { margin-bottom: 8px; }
+    .msg strong { color: #0077cc; }
+    input, button { padding: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+  </style>
 </head>
 <body>
-    <h1>Estamos trabalhando nisso...</h1>
-    <img src="images/image.png" alt="Estamos trampando">
+  <h2>💬 Chat Simples com Firebase</h2>
+
+  <div id="chat"></div>
+
+  <input type="text" id="nome" placeholder="Seu nome">
+  <input type="text" id="mensagem" placeholder="Digite uma mensagem">
+  <button onclick="enviarMensagem()">Enviar</button>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+  <script>
+    // Configuração Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyB5YU8HtWIwRVTNzTuCew3_72pmYwvRdd0",
+      authDomain: "chet-6a0e3.firebaseapp.com",
+      databaseURL: "https://chet-6a0e3-default-rtdb.firebaseio.com",
+      projectId: "chet-6a0e3",
+      storageBucket: "chet-6a0e3.appspot.com",
+      messagingSenderId: "1096438415679",
+      appId: "1:1096438415679:web:72d962c03e962f714b138a"
+    };
+
+    // Inicializa o Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Enviar mensagem
+    function enviarMensagem() {
+      const nome = document.getElementById('nome').value.trim();
+      const mensagem = document.getElementById('mensagem').value.trim();
+      if (nome && mensagem) {
+        const novaMsg = {
+          nome: nome,
+          texto: mensagem,
+          data: Date.now()
+        };
+        db.ref("mensagens").push(novaMsg);
+        document.getElementById('mensagem').value = "";
+      }
+    }
+
+    // Exibir mensagens
+    const chat = document.getElementById("chat");
+    db.ref("mensagens").on("child_added", (snapshot) => {
+      const msg = snapshot.val();
+      const div = document.createElement("div");
+      div.classList.add("msg");
+      const dataHora = new Date(msg.data).toLocaleTimeString();
+      div.innerHTML = `<strong>${msg.nome}</strong> [${dataHora}]: ${msg.texto}`;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    });
+  </script>
 </body>
 </html>
