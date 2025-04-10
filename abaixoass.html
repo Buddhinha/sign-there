@@ -1,51 +1,213 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHAT</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abaixo-assinado Escolar</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #333;
+      text-align: center;
+    }
+    p.descricao {
+      font-size: 1.1em;
+      text-align: justify;
+      margin-bottom: 20px;
+      color: #444;
+    }
+    img.causa {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 10px auto 30px;
+      border-radius: 8px;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    .mensagem {
+      margin-top: 15px;
+      color: green;
+    }
+    .erro {
+      color: red;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
 
-        h1 {
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        img {
-            max-width: 90%;
-            height: auto;
-            border: 3px solid #f0f0f0;
-            border-radius: 12px;    
-        }
-    </style>
+    /* Responsividade */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      input, button {
+        font-size: 1em;
+      }
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      tr {
+        margin-bottom: 15px;
+      }
+      td {
+        position: relative;
+        padding-left: 50%;
+      }
+      td::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 45%;
+        padding-left: 10px;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+      td:nth-of-type(1)::before { content: "Nome"; }
+      td:nth-of-type(2)::before { content: "Email"; }
+      td:nth-of-type(3)::before { content: "Data"; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Abaixo assinado 1</h1>
-    Um banheiro mais equipado.
-    <img src="images/image copy.png" alt="banheiro gamer">
-    <button></button>
-    
-    <h1>Abaixo assinado 2</h1>
-    Um banheiro mais equipado.
-    <img src="images/image copy.png" alt="banheiro gamer">
-    
-    <h1>Abaixo assinado 3</h1>
-    Um banheiro mais equipado.
-    <img src="images/image copy.png" alt="banheiro gamer">
-    
+  <h1>Abaixo-assinado Escolar</h1>
+  
+  <p class="descricao">
+    Este abaixo-assinado tem como objetivo solicitar melhorias na estrutura da escola, como reformas urgentes na biblioteca e áreas esportivas. Seu apoio é essencial para promover um ambiente de estudo mais seguro e acolhedor para todos os alunos.
+  </p>
 
+  <img class="causa" src="https://via.placeholder.com/800x300?text=Imagem+da+Causa" alt="Imagem da causa">
+
+  <form id="form">
+    <input type="text" id="nome" placeholder="Seu nome completo" required />
+    <input type="email" id="email" placeholder="Seu email" required />
+    <button type="submit">Assinar</button>
+  </form>
+
+  <p class="mensagem" id="mensagem"></p>
+
+  <h2>Assinaturas registradas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody id="listaAssinaturas"></tbody>
+  </table>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4lL7VcW1siPyBTtB4t5E68x3-l00aovQ",
+      authDomain: "chat-65b33.firebaseapp.com",
+      databaseURL: "https://chat-65b33-default-rtdb.firebaseio.com",
+      projectId: "chat-65b33",
+      storageBucket: "chat-65b33.appspot.com",
+      messagingSenderId: "1056200514423",
+      appId: "1:1056200514423:web:2e20ab715edd1e0be51f72"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    const form = document.getElementById("form");
+    const mensagem = document.getElementById("mensagem");
+    const listaAssinaturas = document.getElementById("listaAssinaturas");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+
+      mensagem.textContent = "";
+      mensagem.className = "mensagem";
+
+      if (!nome || !email) {
+        mensagem.textContent = "Preencha todos os campos.";
+        mensagem.classList.add("erro");
+        return;
+      }
+
+      // Verificar email duplicado
+      database.ref("assinaturas").orderByChild("email").equalTo(email).once("value", function(snapshot) {
+        if (snapshot.exists()) {
+          mensagem.textContent = "Este e-mail já foi registrado.";
+          mensagem.classList.add("erro");
+        } else {
+          const assinatura = {
+            nome: nome,
+            email: email,
+            data: new Date().toISOString()
+          };
+
+          database.ref("assinaturas").push(assinatura, function(error) {
+            if (error) {
+              mensagem.textContent = "Erro ao salvar. Tente novamente.";
+              mensagem.classList.add("erro");
+            } else {
+              mensagem.textContent = "Assinatura registrada com sucesso!";
+              mensagem.classList.remove("erro");
+              form.reset();
+            }
+          });
+        }
+      });
+    });
+
+    function carregarAssinaturas() {
+      database.ref("assinaturas").on("value", function(snapshot) {
+        listaAssinaturas.innerHTML = "";
+
+        snapshot.forEach(function(childSnapshot) {
+          const dados = childSnapshot.val();
+          const tr = document.createElement("tr");
+
+          const tdNome = document.createElement("td");
+          tdNome.textContent = dados.nome;
+
+          const tdEmail = document.createElement("td");
+          tdEmail.textContent = dados.email;
+
+          const tdData = document.createElement("td");
+          tdData.textContent = new Date(dados.data).toLocaleString("pt-BR");
+
+          tr.appendChild(tdNome);
+          tr.appendChild(tdEmail);
+          tr.appendChild(tdData);
+
+          listaAssinaturas.appendChild(tr);
+        });
+      });
+    }
+
+    carregarAssinaturas();
+  </script>
 </body>
 </html>
