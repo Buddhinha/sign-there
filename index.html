@@ -1,37 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assina aí</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assina aí</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0fdf9;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .banner {
+      background-color: #00c9a7;
+      color: white;
+      font-size: 2.5rem;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .banner2 {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .navigator {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background-color: #d2f4ea;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .navigator a {
+      color: #00796b;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .navigator a:hover {
+      color: #004d40;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #00796b;
+      margin-bottom: 10px;
+    }
+
+    p {
+      max-width: 600px;
+      font-size: 1.1rem;
+      margin: 0 auto 20px auto;
+    }
+
+    img {
+      width: 200px;
+      height: auto;
+    }
+
+    .rodape {
+      margin-top: 50px;
+      text-align: center;
+      background-color: #e0f7fa;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      .banner {
+        font-size: 1.8rem;
+      }
+
+      .navigator {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      img {
+        width: 150px;
+      }
+
+      p {
+        padding: 0 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <center>
-            <div class="banner"><mark>Assina aí</mark></div>
-            <div class="banner2">O seu site de abaixo assinado!</div>
-    </center>
+  <center>
+    <div class="banner"><mark>Assina aí</mark></div>
+    <div class="banner2">O seu site de abaixo assinado!</div>
+  </center>
 
-    <nav class="navigator">
-        <a href="abaixoass.html">Abaixo assinados</a>
-        <a href="chat.html">chat</a>
-        <a href="games.html">Games</a>
-    </nav>
-    <br><br><br><br>
-    <center>
-        <H1>quem somo nós?</H1>
+  <nav class="navigator">
+    <a href="abaixoass.html">Abaixo assinados</a>
+    <a href="chat.html">Chat</a>
+    <a href="games.html">Games</a>
+  </nav>
 
-        <p>Uma empresa especializada em abaixos assinados escolares, promovendo a democracia e respeito entre alunos e professores.</p>
-        <br><br><br>
-        <img src="images/urna.png" alt="">
-        <br><br><br>
-    </center>
+  <center>
+    <h1>Quem somos nós?</h1>
+    <p>Uma empresa especializada em abaixos assinados escolares, promovendo a democracia e respeito entre alunos e professores.</p>
+    <img src="images/urna.png" alt="Imagem de urna">
+  </center>
 
-
-    <footer class="rodape">
-        <p>&copy; 2025 - assina aí. Todos os direitos reservados.</p>
-    </footer>
-    
-    
+  <footer class="rodape">
+    <p>&copy; 2025 - Assina aí. Todos os direitos reservados.</p>
+  </footer>
 </body>
-</html> 
+</html>
