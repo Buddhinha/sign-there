@@ -47,7 +47,7 @@
     .hero {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 60px 0;
+      padding: 80px 0;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -83,7 +83,8 @@
     }
 
     .campaign-content {
-      padding: 40px 0;
+      padding: 60px 0 40px;
+      text-align: center;
     }
 
     .section-title {
@@ -139,7 +140,7 @@
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .form-label {
@@ -147,6 +148,7 @@
       margin-bottom: 8px;
       font-weight: 500;
       color: var(--dark);
+      text-align: left;
     }
 
     .form-input {
@@ -163,6 +165,11 @@
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(0, 201, 167, 0.2);
+    }
+
+    textarea.form-input {
+      min-height: 100px;
+      resize: vertical;
     }
 
     .btn {
@@ -193,22 +200,26 @@
       margin: 20px 0;
       font-size: 0.95rem;
       text-align: center;
+      display: none;
     }
 
     .alert-success {
       background-color: rgba(40, 167, 69, 0.1);
       color: var(--success);
       border: 1px solid rgba(40, 167, 69, 0.2);
+      display: block;
     }
 
     .alert-danger {
       background-color: rgba(220, 53, 69, 0.1);
       color: var(--danger);
       border: 1px solid rgba(220, 53, 69, 0.2);
+      display: block;
     }
 
     .signatures-section {
       margin: 60px 0;
+      text-align: center;
     }
 
     .signatures-title {
@@ -361,7 +372,7 @@
 
     @media (max-width: 480px) {
       .hero {
-        padding: 40px 0;
+        padding: 60px 0;
       }
       
       .hero-title {
@@ -379,6 +390,24 @@
       .footer-links {
         flex-direction: column;
         gap: 10px;
+      }
+
+      .signatures-table td {
+        padding: 12px 15px;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+      }
+      
+      .signatures-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 15px);
+        padding-right: 10px;
+        font-weight: 500;
+        text-align: left;
+        color: var(--dark);
       }
     }
 
@@ -407,7 +436,6 @@
       }
       
       .signatures-table td {
-        padding: 12px 15px;
         text-align: right;
         position: relative;
         padding-left: 50%;
@@ -429,55 +457,63 @@
 <body>
   <section class="hero">
     <div class="container">
-      <h1 class="hero-title">Manutenção urgente nos banheiros</h1>
-      <p class="hero-subtitle">Sua assinatura faz a diferença!</p>
+      <h1 class="hero-title">Abaixo-assinado Escolar</h1>
+      <p class="hero-subtitle">Assine para apoiar melhorias em nossa escola!</p>
     </div>
   </section>
 
-  <div class="container">
-    <main class="campaign-content">
-      <h2 class="section-title">Sobre a Campanha</h2>
-      <p class="campaign-description">
-        Melhorias nos banheiros da escola (consertar trancas, limpeza regular e manutenção dos equipamentos).
-      </p>
+  <section class="container campaign-content">
+    <h2 class="section-title">Sobre a Campanha</h2>
+    <p class="campaign-description">
+      Este abaixo-assinado tem como objetivo reunir apoio da comunidade escolar para promover melhorias na infraestrutura, alimentação, segurança e atividades pedagógicas da escola. Sua assinatura é essencial para demonstrarmos união e força perante os órgãos responsáveis.
+    </p>
+    <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" class="campaign-image" alt="Campanha Escolar">
+  </section>
 
-      <img class="campaign-image" src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Imagem da causa">
-
-      <form id="form" class="signature-form">
-        <div class="form-group">
-          <label for="nome" class="form-label">Nome completo</label>
-          <input type="text" id="nome" class="form-input" placeholder="Digite seu nome completo" required />
-        </div>
-        
-        <div class="form-group">
-          <label for="email" class="form-label">E-mail</label>
-          <input type="email" id="email" class="form-input" placeholder="Digite seu e-mail" required />
-        </div>
-        
-        <button type="submit" class="btn">
-          <i class="fas fa-signature"></i> Assinar Agora
-        </button>
-      </form>
-
+  <section class="container">
+    <form id="form-assinatura" class="signature-form">
+      <h2 class="section-title">Assine aqui</h2>
+      <div class="form-group">
+        <label class="form-label" for="nome">Nome completo</label>
+        <input type="text" id="nome" class="form-input" required placeholder="Digite seu nome completo">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" id="email" class="form-input" required placeholder="Digite seu e-mail">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="cidade">Turma</label>
+        <input type="text" id="cidade" class="form-input" required placeholder="Digite sua Turma">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="comentario">Comentário (opcional)</label>
+        <textarea id="comentario" class="form-input" rows="3" placeholder="Deixe seu comentário ou sugestão"></textarea>
+      </div>
+      <button type="submit" class="btn">
+        <i class="fas fa-signature"></i> Assinar Agora
+      </button>
       <div id="mensagem" class="alert" style="display: none;"></div>
+    </form>
+  </section>
 
-      <section class="signatures-section">
-        <h2 class="section-title signatures-title">Assinaturas Registradas</h2>
-        <div id="signatureCount" class="signature-count">0 pessoas já assinaram</div>
-        
-        <table class="signatures-table">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th>Data</th>
-            </tr>
-          </thead>
-          <tbody id="listaAssinaturas"></tbody>
-        </table>
-      </section>
-    </main>
-  </div>
+  <section class="container signatures-section">
+    <h2 class="section-title signatures-title">Assinaturas Recentes</h2>
+    <div id="signatureCount" class="signature-count">0 pessoas já assinaram</div>
+    <table class="signatures-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Cidade</th>
+          <th>Comentário</th>
+        </tr>
+      </thead>
+      <tbody id="lista-assinaturas">
+        <tr>
+          <td colspan="3" style="text-align: center; color: var(--gray);">Carregando assinaturas...</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
   <footer class="footer">
     <div class="container">
@@ -495,7 +531,7 @@
       
       <div class="copyright">
         &copy; 2025 Assina aí. Todos os direitos reservados.
-            <br> Arthur, Lucas Cardoso. e Kauani
+        <br> Arthur, Lucas Cardoso e Kauani
         <br> T: 104
       </div>
     </div>
@@ -503,58 +539,57 @@
 
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyD4lL7VcW1siPyBTtB4t5E68x3-l00aovQ",
-      authDomain: "chat-65b33.firebaseapp.com",
-      databaseURL: "https://chat-65b33-default-rtdb.firebaseio.com",
-      projectId: "chat-65b33",
-      storageBucket: "chat-65b33.appspot.com",
-      messagingSenderId: "1056200514423",
-      appId: "1:1056200514423:web:2e20ab715edd1e0be51f72"
+      apiKey: "SUA_CHAVE_AQUI",
+      authDomain: "seu-projeto.firebaseapp.com",
+      databaseURL: "https://seu-projeto.firebaseio.com",
+      projectId: "seu-projeto",
+      storageBucket: "seu-projeto.appspot.com",
+      messagingSenderId: "000000000000",
+      appId: "1:000000000000:web:xxxxxxxxxxxxxxxx"
     };
 
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    const form = document.getElementById("form");
-    const mensagem = document.getElementById("mensagem");
-    const listaAssinaturas = document.getElementById("listaAssinaturas");
-    const signatureCount = document.getElementById("signatureCount");
+    const form = document.getElementById('form-assinatura');
+    const lista = document.getElementById('lista-assinaturas');
+    const mensagem = document.getElementById('mensagem');
+    const signatureCount = document.getElementById('signatureCount');
 
-    form.addEventListener("submit", function (e) {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      const nome = document.getElementById("nome").value.trim();
-      const email = document.getElementById("email").value.trim().toLowerCase();
-
+      
       // Esconder mensagem anterior
       mensagem.style.display = "none";
       mensagem.textContent = "";
       mensagem.className = "alert";
+      
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const cidade = document.getElementById('cidade').value.trim();
+      const comentario = document.getElementById('comentario').value.trim();
 
-      if (!nome || !email) {
-        showMessage("Preencha todos os campos.", "danger");
+      if (!nome || !email || !cidade) {
+        showMessage("Preencha todos os campos obrigatórios.", "danger");
         return;
       }
 
       // Verificar email duplicado
-      database.ref("assinaturas").orderByChild("email").equalTo(email).once("value", function(snapshot) {
+      database.ref('assinaturas').orderByChild('email').equalTo(email).once('value', (snapshot) => {
         if (snapshot.exists()) {
           showMessage("Este e-mail já foi registrado.", "danger");
         } else {
-          const assinatura = {
-            nome: nome,
-            email: email,
-            data: new Date().toISOString()
-          };
-
-          database.ref("assinaturas").push(assinatura, function(error) {
-            if (error) {
-              showMessage("Erro ao salvar. Tente novamente.", "danger");
-            } else {
+          const data = new Date().toISOString();
+          
+          database.ref('assinaturas').push({ nome, email, cidade, comentario, data })
+            .then(() => {
               showMessage("Assinatura registrada com sucesso! Obrigado por participar.", "success");
               form.reset();
-            }
-          });
+            })
+            .catch((error) => {
+              showMessage("Erro ao registrar assinatura. Tente novamente.", "danger");
+              console.error("Erro Firebase:", error);
+            });
         }
       });
     });
@@ -568,42 +603,51 @@
       mensagem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    function carregarAssinaturas() {
-      database.ref("assinaturas").on("value", function(snapshot) {
-        listaAssinaturas.innerHTML = "";
-        let count = 0;
+    // Carregar assinaturas
+    database.ref('assinaturas').on('value', (snapshot) => {
+      lista.innerHTML = '';
+      let count = 0;
+      
+      snapshot.forEach((item) => {
+        count++;
+        const dados = item.val();
+        const dataFormatada = new Date(dados.data).toLocaleString('pt-BR');
+        
+        const tr = document.createElement('tr');
+        
+        // Para mobile, adiciona data-label
+        const tdNome = document.createElement('td');
+        tdNome.textContent = dados.nome;
+        tdNome.setAttribute('data-label', 'Nome');
 
-        snapshot.forEach(function(childSnapshot) {
-          count++;
-          const dados = childSnapshot.val();
-          const tr = document.createElement("tr");
+        const tdCidade = document.createElement('td');
+        tdCidade.textContent = dados.cidade;
+        tdCidade.setAttribute('data-label', 'Cidade');
 
-          // Para mobile, adiciona data-label
-          const tdNome = document.createElement("td");
-          tdNome.textContent = dados.nome;
-          tdNome.setAttribute('data-label', 'Nome');
+        const tdComentario = document.createElement('td');
+        tdComentario.textContent = dados.comentario || '-';
+        tdComentario.setAttribute('data-label', 'Comentário');
 
-          const tdEmail = document.createElement("td");
-          tdEmail.textContent = dados.email;
-          tdEmail.setAttribute('data-label', 'E-mail');
+        tr.appendChild(tdNome);
+        tr.appendChild(tdCidade);
+        tr.appendChild(tdComentario);
 
-          const tdData = document.createElement("td");
-          tdData.textContent = new Date(dados.data).toLocaleString("pt-BR");
-          tdData.setAttribute('data-label', 'Data');
-
-          tr.appendChild(tdNome);
-          tr.appendChild(tdEmail);
-          tr.appendChild(tdData);
-
-          listaAssinaturas.appendChild(tr);
-        });
-
-        // Atualiza contador
-        signatureCount.textContent = `${count} ${count === 1 ? 'pessoa já assinou' : 'pessoas já assinaram'}`;
+        lista.appendChild(tr);
       });
-    }
 
-    carregarAssinaturas();
+      // Atualiza contador
+      signatureCount.textContent = `${count} ${count === 1 ? 'pessoa já assinou' : 'pessoas já assinaram'}`;
+      
+      if (count === 0) {
+        lista.innerHTML = `
+          <tr>
+            <td colspan="3" style="text-align: center; color: var(--gray);">
+              Nenhuma assinatura registrada ainda. Seja o primeiro!
+            </td>
+          </tr>
+        `;
+      }
+    });
   </script>
 </body>
 </html>
